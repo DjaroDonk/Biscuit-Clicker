@@ -31,7 +31,7 @@ biscuits = 0
 
 secondly_biscuits = perpetualTimer(1.0, lambda: add_biscuits(bps))
 
-def add_bps(count):
+def add_bps(count, cost):
     global bps
     bps += count
     global bpsCounter
@@ -44,16 +44,42 @@ def add_biscuits(count):
     biscuitCounter["text"] = "You have " + str(biscuits) + " biscuits"
 
 
+def upgrade_bpc(count, cost):
+    global bpc
+    bpc += count
+    global biscuits
+    biscuits -= cost
+    biscuitCounter["text"] = "You have " + str(biscuits) + " biscuits"
+    bpcCounter["text"] = "Your BPC is " + str(bpc)
+
+def upgrade_bps(count, cost):
+    global bps
+    bps += count
+    global biscuits
+    biscuits -= cost
+    biscuitCounter["text"] = "You have " + str(biscuits) + " biscuits"
+    bpsCounter["text"] = "Your BPS is " + str(bps)
 
 biscuitCounter = tk.Label(window, text="You have " + str(biscuits) + " biscuits")
 biscuitButton = tk.Button(window, text="Biscuit!", command=lambda: add_biscuits(bpc))
 biscuitCounter.config(font=("Courier", 44))
 biscuitButton.config(font=("Courier", 30))
 bpsCounter = tk.Label(window, text="Your BPS is " + str(bps))
+bpcCounter = tk.Label(window, text="Your BPC is " + str(bpc))
+upgradeBPCbutton = tk.Button(window, text="""Upgrade your BPC,
+                                          Price: 10""",
+                             command=lambda: upgrade_bpc(1,10))
+upgradeBPSbutton = tk.Button(window, text="""Upgrade your BPS,
+                                          Price: 10""",
+                             command=lambda: upgrade_bps(1,10))
 
 secondly_biscuits.start()
 biscuitCounter.pack()
 biscuitButton.pack()
 bpsCounter.pack()
+bpcCounter.pack()
+upgradeBPCbutton.pack()
+upgradeBPSbutton.pack()
 window.mainloop()
+
 
