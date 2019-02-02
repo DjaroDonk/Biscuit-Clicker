@@ -1,0 +1,59 @@
+import tkinter as tk
+from threading import *
+
+class perpetualTimer():
+
+   def __init__(self,t,hFunction):
+      self.t=t
+      self.hFunction = hFunction
+      self.thread = Timer(self.t,self.handle_function)
+
+   def handle_function(self):
+      self.hFunction()
+      self.thread = Timer(self.t,self.handle_function)
+      self.thread.start()
+
+   def start(self):
+      self.thread.start()
+
+   def cancel(self):
+      self.thread.cancel()
+
+
+window = tk.Tk()
+window.resizable(False, False)
+window.minsize(600, 800)
+window.title("Biscuit Clicker!")
+
+bpc = 1
+bps = 0
+biscuits = 0
+
+secondly_biscuits = perpetualTimer(1.0, lambda: add_biscuits(bps))
+
+def add_bps(count):
+    global bps
+    bps += count
+    global bpsCounter
+    bpsCounter["text"] = "Your BPS is " + str(bps)
+
+def add_biscuits(count):
+    global biscuits
+    biscuits += count
+    global biscuitCounter
+    biscuitCounter["text"] = "You have " + str(biscuits) + " biscuits"
+
+
+
+biscuitCounter = tk.Label(window, text="You have " + str(biscuits) + " biscuits")
+biscuitButton = tk.Button(window, text="Biscuit!", command=lambda: add_biscuits(bpc))
+biscuitCounter.config(font=("Courier", 44))
+biscuitButton.config(font=("Courier", 30))
+bpsCounter = tk.Label(window, text="Your BPS is " + str(bps))
+
+secondly_biscuits.start()
+biscuitCounter.pack()
+biscuitButton.pack()
+bpsCounter.pack()
+window.mainloop()
+
