@@ -29,7 +29,6 @@ window.title("Biscuit Clicker!")
 multiplierList = [1, 10, 100, 1000, 10000, 100000, 1000000]
 curMult = 1
 
-
 inThread = False
 
 
@@ -124,17 +123,16 @@ upgradeBPSbutton = tk.Button(window, text="""Upgrade your BPS,
                              command=lambda: upgrade_bps(1 * curMult, 10 * curMult))
 multiplierButton = tk.Button(window, text="Multiplier: " + str(curMult) + "x", command=change_mult)
 logLabel = tk.Label(window, text="", fg="grey")
-cheatLabel = tk.Label(window,text="Cheats:")
+cheatLabel = tk.Label(window, text="Cheats:")
 cheatOff = tk.Radiobutton(window, text="Off", variable=cheats, value=0, command=toggle_cheats)
 cheatOn = tk.Radiobutton(window, text="On", variable=cheats, value=1, command=toggle_cheats)
 allowNegative = tk.Checkbutton(window, text="Allow Negative Biscuits", variable=negativeBiscuits, state="disabled")
 
-
 secondly_biscuits.start()
 biscuitCounter.pack()
 biscuitButton.pack()
-bpsCounter.pack()
 bpcCounter.pack()
+bpsCounter.pack()
 upgradeBPCbutton.pack()
 upgradeBPSbutton.pack()
 multiplierButton.pack()
